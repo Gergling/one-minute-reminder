@@ -5,7 +5,8 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { Recorder } from '@/src/recorder';
+import { Controls } from '@/src/controls';
+import { Status } from '@/src/status';
 
 export default function HomeScreen() {
   return (
@@ -16,8 +17,10 @@ export default function HomeScreen() {
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.reactLogo}
         />
-      }>
-        <Recorder />
+      }
+    >
+      <Status />
+      <Controls />
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
