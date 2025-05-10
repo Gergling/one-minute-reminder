@@ -5,6 +5,6 @@ import { AudioReducerAction, AudioState } from "../types";
 type AudioContextProps = AudioState & { dispatch: ActionDispatch<[ AudioReducerAction ]> };
 
 export const AudioContext = createContext<AudioContextProps>({
-  ...AUDIO_DEFAULT_STATE,
+  ...{ ...AUDIO_DEFAULT_STATE, interval: 5 },
   dispatch: () => {},
 });

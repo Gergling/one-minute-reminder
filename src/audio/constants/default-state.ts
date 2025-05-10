@@ -2,8 +2,8 @@ import { AudioState } from "../types";
 
 export const AUDIO_DEFAULT_STATE: AudioState = {
   countdown: undefined,
-  current: 'idle',
-  interval: 60,
-  startRepeat: undefined,
+  mode: 'idle',
+  interval: 5,
+  startRepeatTime: undefined,
   uri: null,
 };
