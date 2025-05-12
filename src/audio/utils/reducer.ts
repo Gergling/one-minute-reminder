@@ -37,7 +37,7 @@ const reducerCurrentMapping = (
 };
 
 export const reducer = (state: AudioState, action: AudioReducerAction): AudioState => {
-  // const oldState = state.current;
+  // const previousMode = state.mode;
   // console.log('--- Reducer old state', oldState)
   // console.log('--- Reducer action', action)
   const actionIsObject = typeof action === 'object';
@@ -56,9 +56,10 @@ export const reducer = (state: AudioState, action: AudioReducerAction): AudioSta
       ? 'idle'
       : state.mode;
 
+  // const isStartingPlayer = action === 'play' && previousMode === 'idle';
   // console.log('--- Reducer new state', current)
 
-  const uri = actionIsObject && action.type === 'save' ? action.value : state.uri;
+  const uri = actionIsSave ? action.value : state.uri;
   // console.log('--- Reducer uri', uri)
   // console.log('state uri', uri, action)
   // const hasSource = state.hasSource || action === 'save';
@@ -75,7 +76,7 @@ export const reducer = (state: AudioState, action: AudioReducerAction): AudioSta
         : interval - elapsed;
 
   if (countdown && startRepeatTime) {
-    console.log('repeating', action, startRepeatTime, countdown, elapsed, interval)
+    // console.log('repeating', action, startRepeatTime, countdown, elapsed, interval)
   }
   return {
     countdown,

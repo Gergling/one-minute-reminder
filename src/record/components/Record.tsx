@@ -26,24 +26,24 @@ type ButtonState = 'empty' | 'recording' | 'source';
 export const Record = () => {
   const {
     hasSource,
-    state,
+    mode,
     record,
-    stopRecording,
+    stop,
   } = useAudio();
   const buttonState: ButtonState = useMemo(
     () => {
-      if (state === 'recording') return 'recording';
+      if (mode === 'recording') return 'recording';
 
       return hasSource ? 'source' : 'empty';
     },
-    [hasSource, state]
+    [hasSource, mode]
   );
 
   return (
     <>
       {buttonState === 'recording'
         ? (
-          <Button onPress={stopRecording}>
+          <Button onPress={stop}>
             <ControlIconRecordStop />
           </Button>
         ) : (

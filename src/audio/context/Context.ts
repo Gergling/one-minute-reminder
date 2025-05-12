@@ -1,10 +1,31 @@
-import { ActionDispatch, createContext } from "react";
-import { AUDIO_DEFAULT_STATE } from "../constants";
-import { AudioReducerAction, AudioState } from "../types";
+import { createContext } from "react";
+import { AudioState } from "../types";
 
-type AudioContextProps = AudioState & { dispatch: ActionDispatch<[ AudioReducerAction ]> };
+type AudioContextProps = {
+  // dispatch: ActionDispatch<[ AudioReducerAction ]>;
+  countdown: number | undefined;
+  handleIntervalChange: (interval: number) => void;
+  hasSource: boolean;
+  interval: number;
+  isPlaying: boolean,
+  mode: AudioState['mode'];
+  play: () => unknown;
+  record: () => unknown;
+  repeat: () => unknown;
+  stop: () => unknown;
+};
+
+const noop = () => {};
 
 export const AudioContext = createContext<AudioContextProps>({
-  ...{ ...AUDIO_DEFAULT_STATE, interval: 5 },
-  dispatch: () => {},
+  countdown: undefined,
+  handleIntervalChange: noop,
+  hasSource: false,
+  interval: 5,
+  isPlaying: false,
+  mode: 'idle',
+  play: noop,
+  record: noop,
+  repeat: noop,
+  stop: noop,
 });

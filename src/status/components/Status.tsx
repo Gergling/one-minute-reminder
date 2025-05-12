@@ -11,10 +11,16 @@ const styles = StyleSheet.create({
 });
 
 export const Status = () => {
-  const { state } = useAudio();
+  const { countdown, mode } = useAudio();
+
   return (
-    <Text style={styles.text}>
-      {state}
-    </Text>
+    <>
+      <Text style={styles.text}>
+        {mode}
+      </Text>
+      <Text style={styles.text}>
+        ({countdown === undefined ? 'Not repeating' : `Counting down: ${countdown}`})
+      </Text>
+    </>
   );
 };

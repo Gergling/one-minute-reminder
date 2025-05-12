@@ -5,18 +5,17 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { reducer } from '@/src/audio';
-import { AUDIO_DEFAULT_STATE } from '@/src/audio/constants';
 import { AudioContext } from '@/src/audio/context';
+import { useAudioContext } from '@/src/audio/hooks/use-context';
 import { Controls } from '@/src/controls';
 import { Status } from '@/src/status';
-import { useReducer } from 'react';
 
 export default function HomeScreen() {
-  const [state, dispatch] = useReducer(reducer, AUDIO_DEFAULT_STATE);
+  const contextValue = useAudioContext();
+
   return (
     <>
-      <AudioContext value={{ ...{ ...state, interval: 4 }, dispatch }}>
+      <AudioContext value={contextValue}>
         <Status />
         <Controls />
       </AudioContext>
