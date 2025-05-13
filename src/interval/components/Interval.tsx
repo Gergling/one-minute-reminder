@@ -13,10 +13,11 @@ const styles = StyleSheet.create({
 
 export const Interval = () => {
   const { handleIntervalChange, interval } = useAudio();
-  const intervalString = useMemo(() => interval.toString(), [interval]);
+  const intervalString: string = useMemo(() => interval !== null ? interval.toString() : '', [interval]);
   const onChange = (updatedText: string) => {
     if (updatedText === '') {
-      // TODO: Handle empty text, possibly with undefined or something.
+      handleIntervalChange(null);
+      return;
     }
 
     const updatedNumber = +updatedText;

@@ -58,7 +58,7 @@ export const useAudioContext = (): AudioContextProps => {
   const play = () => dispatch('play');
   const repeat = () => dispatch('repeat');
   const stop = () => dispatch('stop');
-  const handleIntervalChange = (interval: number) => dispatch({
+  const handleIntervalChange = (interval: number | null) => dispatch({
     type: 'interval',
     value: interval
   });
