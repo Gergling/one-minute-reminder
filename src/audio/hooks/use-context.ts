@@ -4,6 +4,7 @@ import { Alert } from "react-native";
 import { AUDIO_DEFAULT_STATE } from "../constants";
 import { AudioContextProps } from "../types";
 import { reducer } from "../utils";
+import { useAudioRepeatIntervalStorage } from "./use-interval-storage";
 import { useAudioPlayer } from "./use-player";
 import { useAudioRecorder } from "./use-recorder";
 
@@ -12,13 +13,13 @@ export const useAudioContext = (): AudioContextProps => {
   const [state, dispatch] = useReducer(reducer, AUDIO_DEFAULT_STATE);
   const {
     countdown,
-    interval,
     mode,
     startRepeatTime,
     uri,
   } = state;
   const { isPlayerFinished } = useAudioPlayer(state);
   const { uri: recorderURI } = useAudioRecorder(state);
+  const { storedInterval: interval } = useAudioRepeatIntervalStorage(state);
 
   // Side Effects
   const handlePermissions = useCallback(
@@ -47,7 +48,6 @@ export const useAudioContext = (): AudioContextProps => {
     [countdown]
   );
 
-  
   // Output states
   const countdownInteger = useMemo(() => countdown && Math.floor(countdown), [countdown]);
   const hasSource = useMemo(() => !!uri, [uri]);

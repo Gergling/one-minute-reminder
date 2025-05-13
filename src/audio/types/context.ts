@@ -4,7 +4,7 @@ export type AudioContextProps = {
   countdown: number | undefined;
   handleIntervalChange: (interval: number) => void;
   hasSource: boolean;
-  interval: number;
+  interval: AudioState['interval'];
   isRepeating: boolean;
   mode: AudioState['mode'];
   play: () => unknown;

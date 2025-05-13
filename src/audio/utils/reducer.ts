@@ -1,4 +1,4 @@
-import { AudioReducerAction, AudioState } from "../types";
+import { AudioReducerAction, AudioReducerActionUpdatesIntervalProps, AudioState } from "../types";
 
 type Mode = AudioState['mode'];
 type TypesMatching<T, V> = T extends V ? T : never;
@@ -36,14 +36,17 @@ const reducerCurrentMapping = (
   return mapping[action];
 };
 
+const actionsUpdateInterval: AudioReducerActionUpdatesIntervalProps[] = ['interval', 'load'];
+
 export const reducer = (state: AudioState, action: AudioReducerAction): AudioState => {
-  // const previousMode = state.mode;
-  // console.log('--- Reducer old state', oldState)
-  // console.log('--- Reducer action', action)
   const actionIsObject = typeof action === 'object';
   const actionIsRepeat = action === 'repeat';
   const actionIsSave = actionIsObject && action.type === 'save';
+  const actionUpdatesInterval = actionIsObject
+    && !actionIsSave
+    && actionsUpdateInterval.includes(action.type);
 
+  const saveInterval = actionIsObject && action.type === 'interval';
   const startRepeatTime = actionIsRepeat
     ? new Date()
     : action === 'stop' || action === 'record'
@@ -58,32 +61,22 @@ export const reducer = (state: AudioState, action: AudioReducerAction): AudioSta
       ? 'idle'
       : state.mode;
 
-  // const isStartingPlayer = action === 'play' && previousMode === 'idle';
-  // console.log('--- Reducer new state', current)
-
   const uri = actionIsSave ? action.value : state.uri;
-  // console.log('--- Reducer uri', uri)
-  // console.log('state uri', uri, action)
-  // const hasSource = state.hasSource || action === 'save';
-  const interval = actionIsObject && action.type === 'interval' ? action.value : state.interval;
-  // action === 'stop' || action === 'record' set the countdown to undefined, but that can depend on the state of repeat
-  // actionIsRepeat means we can set the countdown to the interval.
+  const interval = actionUpdatesInterval ? action.value : state.interval;
   const elapsed = startRepeatTime && getDifference(startRepeatTime, new Date());
-  const countdown = actionIsRepeat && interval >= 1
+  const countdown: number | undefined = actionIsRepeat && interval !== null && interval >= 1
     ? interval
-    : !state.countdown || elapsed === undefined
+    : !state.countdown || elapsed === undefined || interval === null
       ? undefined
       : action !== 'countdown'
         ? state.countdown
         : interval - elapsed;
 
-  if (countdown && startRepeatTime) {
-    // console.log('repeating', action, startRepeatTime, countdown, elapsed, interval)
-  }
   return {
     countdown,
     mode,
     interval,
+    saveInterval,
     startRepeatTime,
     uri,
   };
