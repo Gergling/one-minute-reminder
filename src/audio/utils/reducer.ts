@@ -23,12 +23,12 @@ const getDifference = (
 const reducerCurrentMapping = (
   currentState: Mode,
   action: MappableActions
-) => {
+): Mode => {
   const mapping: MappableActionCurrentStates = {
     countdown: currentState,
     end: 'idle',
     pause: 'idle',
-    play: 'playing',
+    play: currentState,
     record: 'recording',
     repeat: currentState,
     stop: 'idle',
@@ -50,8 +50,10 @@ export const reducer = (state: AudioState, action: AudioReducerAction): AudioSta
       ? undefined
       : state.startRepeatTime;
 
-  const mode = typeof action === 'string'
-    ? reducerCurrentMapping(state.mode, action)
+  const mode: Mode = typeof action === 'string'
+    ? action === 'play' && state.uri
+      ? 'playing'
+      : reducerCurrentMapping(state.mode, action)
     : actionIsSave
       ? 'idle'
       : state.mode;
