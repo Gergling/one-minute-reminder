@@ -14,26 +14,21 @@ export const useAudioRepeatIntervalStorage = ({ interval, saveInterval }: AudioS
   const handleIntervalFetch = useCallback(
     () => {
       if (storedInterval !== null) {
-        const numericStoredInterval = +storedInterval;
-        if (numericStoredInterval !== interval) {
-          setNumericStoredInterval(numericStoredInterval);
-        }
+        const updatedNumericStoredInterval = +storedInterval;
+        setNumericStoredInterval(updatedNumericStoredInterval);
       }
     },
-    [interval, storedInterval]
+    [storedInterval]
   );
   const handleIntervalSet = useCallback(
     () => {
-      if (saveInterval && interval !== null) {
-        if (storedInterval !== null) {
-          const numericStoredInterval = +storedInterval;
-          if (numericStoredInterval !== interval) {
-            setStoredInterval(interval.toString());
-          }
-        } else {
-          setStoredInterval(interval.toString());
-        }
-      }
+      if (!saveInterval || interval === null) return;
+
+      const isUnequal = (storedInterval !== null && +storedInterval !== interval) || storedInterval === null;
+
+      if (!isUnequal) return;
+
+      setStoredInterval(interval.toString());
     },
     [interval, saveInterval, setStoredInterval, storedInterval]
   );

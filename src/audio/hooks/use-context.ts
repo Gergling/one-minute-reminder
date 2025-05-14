@@ -14,6 +14,7 @@ export const useAudioContext = (): AudioContextProps => {
   const {
     countdown,
     mode,
+    saveInterval,
     startRepeatTime,
     uri,
   } = state;
@@ -47,6 +48,14 @@ export const useAudioContext = (): AudioContextProps => {
     },
     [countdown]
   );
+  const handleIntervalFetch = useCallback(
+    () => {
+      if (!saveInterval) {
+        dispatch({ type: 'load', value: interval });
+      }
+    },
+    [interval, saveInterval]
+  );
 
   // Output states
   const countdownInteger = useMemo(() => countdown && Math.floor(countdown), [countdown]);
@@ -64,8 +73,9 @@ export const useAudioContext = (): AudioContextProps => {
   });
 
   // Side Effect Execution
-  useEffect(handlePermissions, [handlePermissions]);
   useEffect(handleCountdown, [handleCountdown]);
+  useEffect(handleIntervalFetch, [handleIntervalFetch]);
+  useEffect(handlePermissions, [handlePermissions]);
   useEffect(() => {
     if (isPlayerFinished) {
       dispatch('end');

@@ -1,25 +1,23 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { AudioContext } from '@/src/audio/context';
-import { useAudioContext } from '@/src/audio/hooks/use-context';
+import { AudioContextProvider } from '@/src/audio/context/Provider';
 import { Controls } from '@/src/controls';
 import { Status } from '@/src/status';
 
 export default function HomeScreen() {
-  const contextValue = useAudioContext();
+  // const contextValue = useAudioContext();
 
   return (
     <>
-      <AudioContext value={contextValue}>
+      <AudioContextProvider>
         <Status />
         <Controls />
-      </AudioContext>
-      <ParallaxScrollView
+      </AudioContextProvider>
+      {/* <AudioContext.Provider value={contextValue}>
+        <Status />
+        <Controls />
+      </AudioContext.Provider> */}
+      {/* <ParallaxScrollView
         headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
         headerImage={
           <Image
@@ -63,7 +61,7 @@ export default function HomeScreen() {
             <ThemedText type="defaultSemiBold">app-example</ThemedText>.
           </ThemedText>
         </ThemedView>
-      </ParallaxScrollView>
+      </ParallaxScrollView> */}
     </>
   );
 }
