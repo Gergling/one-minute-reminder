@@ -56,6 +56,18 @@ export const useAudioContext = (): AudioContextProps => {
     },
     [interval, saveInterval]
   );
+  const handlePlayerFinished = useCallback(
+    () => {
+      if (isPlayerFinished) {
+        dispatch('end');
+      }
+    },
+    [isPlayerFinished]
+  );
+  const handleRecorderStopped = useCallback(
+    () => dispatch({ type: 'save', value: recorderURI }),
+    [recorderURI]
+  );
 
   // Output states
   const countdownInteger = useMemo(() => countdown && Math.floor(countdown), [countdown]);
@@ -76,12 +88,8 @@ export const useAudioContext = (): AudioContextProps => {
   useEffect(handleCountdown, [handleCountdown]);
   useEffect(handleIntervalFetch, [handleIntervalFetch]);
   useEffect(handlePermissions, [handlePermissions]);
-  useEffect(() => {
-    if (isPlayerFinished) {
-      dispatch('end');
-    }
-  }, [isPlayerFinished]);
-  useEffect(() => dispatch({ type: 'save', value: recorderURI }), [recorderURI]);
+  useEffect(handlePlayerFinished, [handlePlayerFinished]);
+  useEffect(handleRecorderStopped, [handleRecorderStopped]);
 
   return {
     countdown: countdownInteger,
