@@ -1,8 +1,9 @@
 import { useAudio } from "@/src/audio";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Button, KeyboardAvoidingView, Modal, Platform, StyleSheet, TextInput, View } from "react-native";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { KeyboardAvoidingView, Platform, View } from "react-native";
+import { Button, Modal, TextInput } from "react-native-paper";
 
-type KeyOfTextInput = keyof Pick<TextInput, 'focus' | 'blur'>;
+// type KeyOfTextInput = keyof Pick<TextInput, 'focus' | 'blur'>;
 
 type ModalInputProps = {
   initialText: string;
@@ -11,30 +12,73 @@ type ModalInputProps = {
   visible: boolean;
 };
 
+// TODO: Outline the close button to make it clearly not a primary operation.
+// Keep it on the right.
+
+// const EffectHandler = ({ callback }: { callback: React.EffectCallback }) => {
+//   useEffect(callback, [callback]);
+//   return <></>;
+// };
+
+// const useEffectHandler = (callbacks: React.EffectCallback[]) => {
+//   const [elements, setElements] = useState
+//   callbacks.forEach((callback) => {
+//     createElement('EffectHandler', { callback });
+//   });
+//   // useEffect(elements, [elements]);
+//   for (const callback in callbacks) {
+//     // useEffect(callback, [callback]);
+//   }
+// }
+
+const useEffectHandler = (callback: React.EffectCallback) => useEffect(callback, [callback]);
+
+// TODO: +/- control for number
+
 const ModalInput = ({ initialText, onClose, onSubmit, visible }: ModalInputProps) => {
   const [text, setText] = useState<string>(initialText);
+  const [isTextValid, setIsTextValid] = useState<boolean>(true);
   // const [isKeyboardVisible, setIsKeyboardVisible] = useState<boolean>(false);
   // TODO: Check if text is numeric.
   // If not, disallow submission and warn.
   const handleSubmit = () => {
-    onClose();
-    onSubmit(text);
+    if (isTextValid) {
+      onClose();
+      onSubmit(text);
+    }
   };
-  const textInputRef = useRef<TextInput>(null);
-  const { current: textInput } = textInputRef;
-  const getTextInputFunction = useCallback((): KeyOfTextInput => visible ? 'focus' : 'blur', [visible]);
-  const handleTextInputFocus = useCallback(
-    () => {
-      if (textInput) {
-        textInput[getTextInputFunction()]();
-      }
-    },
-    [getTextInputFunction, textInput]
-  );
-  useEffect(handleTextInputFocus, [handleTextInputFocus]);
-  useEffect(() => setText(initialText), [initialText]);
+  // const textInputRef = useRef<TextInput>(null);
+  // const { current: textInput } = textInputRef;
+
+  // const getTextInputFunction = useCallback((): KeyOfTextInput => visible ? 'focus' : 'blur', [visible]);
+
+  // Side effects.
+  const handleInitialTextState = useCallback(() => setText(initialText), [initialText]);
+  // const handleTextInputFocus = useCallback(
+  //   () => {
+  //     if (textInput) {
+  //       textInput[getTextInputFunction()]();
+  //     }
+  //   },
+  //   [getTextInputFunction, textInput]
+  // );
+  const handleTextIsNumeric = useCallback(() => {
+    const numericText = +text;
+    const valid = !isNaN(numericText)
+      && text !== ''
+      && text !== initialText
+      && numericText >= 1;
+    setIsTextValid(valid);
+  }, [initialText, text]);
+
+  // Side effect execution.
+  useEffectHandler(handleInitialTextState);
+  // useEffectHandler(handleTextInputFocus);
+  useEffectHandler(handleTextIsNumeric);
+
+  // Render.
   return (
-    <Modal visible={visible} transparent={true} style={{justifyContent:'center'}}>
+    <Modal visible={visible} style={{justifyContent:'center'}}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{
@@ -47,31 +91,34 @@ const ModalInput = ({ initialText, onClose, onSubmit, visible }: ModalInputProps
           backgroundColor: 'white',
         }}
       >
+        {/* <Text>
+          Setting interval (previously {initialText}).
+        </Text> */}
         <TextInput
           // autoFocus
           inputMode="numeric"
           onChangeText={setText}
           placeholder={'Enter an interval'}
-          ref={(ref) => {textInputRef.current = ref;}}
+          // ref={(ref) => {textInputRef.current = ref;}}
           value={text}
         />
         <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-          <Button title="close" onPress={onClose} />
-          <Button title="ok" onPress={handleSubmit} />
+          <Button icon="cancel" mode="outlined" onPress={onClose}>Cancel</Button>
+          <Button icon="check" mode="contained" onPress={handleSubmit} disabled={!isTextValid}>Accept</Button>
         </View>
       </KeyboardAvoidingView>
     </Modal>
   );
 };
 
-const styles = StyleSheet.create({
-  text: {
-    color: 'white',
-    fontSize: 50,
-    marginTop: 50,
-    textAlign: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   text: {
+//     color: 'white',
+//     fontSize: 50,
+//     marginTop: 50,
+//     textAlign: 'center',
+//   },
+// });
 
 export const Interval = () => {
   const [showInput, setShowInput] = useState<boolean>(false);
@@ -106,7 +153,7 @@ export const Interval = () => {
         onSubmit={handleSubmit}
         visible={showInput}
       />
-      <Button title={intervalString} onPress={handleEdit} />
+      <Button onPress={handleEdit}>{intervalString}</Button>
     </>
   );
 };
