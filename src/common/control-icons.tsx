@@ -4,8 +4,23 @@ import {
   FontAwesome6,
   MaterialCommunityIcons
 } from "@expo/vector-icons";
+// import { Dimensions } from "react-native";
 
-const SIZE = 100;
+// type ControlName = 'record-empty' | 'record-stop' | 'repeat' | 'stop' | 'play';
+
+const SIZE = 180;
+
+// const getIconSize = () => {
+//   const { width, height } = Dimensions.get('window');
+//   const size = Math.min(width, height);
+//   const margin = 10;
+//   const iconSize = (size / 2) - margin;
+//   return iconSize;
+// }
+
+// export const ControlIcon = ({ name }: { name: ControlName }) => {
+//   getIconSize()
+// }
 
 // TODO: Theme those colours.
 export const ControlIconRecordEmpty = () => <MaterialCommunityIcons name="record-circle" size={SIZE} color="red" />;

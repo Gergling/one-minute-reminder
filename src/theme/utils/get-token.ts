@@ -1,6 +1,6 @@
-const getPathBits = (path: string) => path.split('.');
+import { getPathBits } from "./get-path-bits";
 
-const getTokenForPathBits = (pathBits: string[], property: unknown): string => {
+const getTokenForPathBits = (pathBits: string[], property: unknown): string | unknown => {
   if (typeof property === 'object') {
     if (property === null) {
       throw new Error(`Property is null.`);
@@ -8,7 +8,7 @@ const getTokenForPathBits = (pathBits: string[], property: unknown): string => {
     const pathBit = pathBits.shift();
 
     if (pathBit === undefined) {
-      throw new Error(`Object found at path: ${JSON.stringify(property)}`);
+      return property;
     }
 
     const childProperty = property[pathBit as keyof typeof property];

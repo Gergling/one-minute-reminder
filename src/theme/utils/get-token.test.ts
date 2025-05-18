@@ -8,6 +8,9 @@ describe('getToken', () => {
     it('should return a property for a complex path', () => {
       expect(getToken('a.b', { a: { b: 'color-for-b' } })).toBe('color-for-b');
     });
+    it('should return an object for a path', () => {
+      expect(getToken('a.b', { a: { b: { c: 'child property value' } } })).toStrictEqual({ c: 'child property value' });
+    });
   });
 
   describe('Invalid paths', () => {

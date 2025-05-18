@@ -1,7 +1,7 @@
 import { useAudio } from '@/src/audio';
-import { Button } from '@/src/common/Button';
-import { ControlIconRecordEmpty, ControlIconRecordStop } from '@/src/common/control-icons';
+import { ControlIconRecordEmpty, ControlIconRecordStop } from '@/src/common';
 import React, { useMemo } from 'react';
+import { Button } from 'react-native-paper';
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
@@ -39,6 +39,7 @@ export const Record = () => {
     [hasSource, mode]
   );
 
+  // <MainButton iconSource='record-circle' onPress={record} />
   return (
     <>
       {buttonState === 'recording'
