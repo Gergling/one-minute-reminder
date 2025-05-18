@@ -23,17 +23,28 @@ export const useAudioContext = (): AudioContextProps => {
   const { storedInterval: interval } = useAudioRepeatIntervalStorage(state);
 
   // Side Effects
+  // Microphone permission should only be requested when attempting to record.
   const handlePermissions = useCallback(
     () => {
-      AudioModule
-        .requestRecordingPermissionsAsync()
-        .then(({ granted }) => {
-          if (!granted) {
-            Alert.alert('Permission to access microphone was denied');
-          }
-        })
+      if (mode === 'recording') {
+        AudioModule
+          .getRecordingPermissionsAsync()
+          .then((response) => {
+            console.log('permission status', response.status)
+            if (!response.granted) {
+              stop();
+            }
+          })
+        AudioModule
+          .requestRecordingPermissionsAsync()
+          .then(({ granted }) => {
+            if (!granted) {
+              Alert.alert('Permission to access microphone was denied');
+            }
+          })
+      }
     },
-    []
+    [mode]
   );
   const handleCountdown = useCallback(
     () => {
