@@ -17,16 +17,14 @@ const styles = StyleSheet.create({
 const Row = ({ children }: PropsWithChildren) => <View style={styles.row}>{children}</View>;
 
 export const Controls = () => {
-  // const [state, dispatch] = useReducer(reducer, AUDIO_DEFAULT_STATE);
-
   return (
     <>
       <Row>
-        <Record />
         <Play />
+        <Repeat />
       </Row>
       <Row>
-        <Repeat />
+        <Record />
         <Stop />
       </Row>
       <Interval />
