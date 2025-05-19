@@ -1,31 +1,15 @@
 import { useAudio } from '@/src/audio';
-import { ControlIconRecordEmpty, ControlIconRecordStop } from '@/src/common';
+import { useMainButtonProps } from '@/src/common/main-button';
+import { MainButton } from '@/src/common/main-button/Component';
 import React, { useMemo } from 'react';
-import { Button } from 'react-native-paper';
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     paddingTop: StatusBar.currentHeight,
-//     backgroundColor: '#ecf0f1',
-//     padding: 8,
-//   },
-//   item: {
-//     margin: 24,
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//   },
-//   whiteText: {
-//     color: 'white',
-//   }
-// });
 
 type ButtonState = 'empty' | 'recording' | 'source';
 
 export const Record = () => {
+  const { record: props } = useMainButtonProps();
   const {
     hasSource,
+    isRepeating,
     mode,
     record,
     stop,
@@ -38,21 +22,17 @@ export const Record = () => {
     },
     [hasSource, mode]
   );
-
-  // <MainButton iconSource='record-circle' onPress={record} />
-  return (
-    <>
-      {buttonState === 'recording'
-        ? (
-          <Button onPress={stop}>
-            <ControlIconRecordStop />
-          </Button>
-        ) : (
-          <Button onPress={record}>
-            <ControlIconRecordEmpty />
-          </Button>
-        )
-      }
-    </>
+  const disabled: boolean = useMemo(
+    () => mode === 'playing' || isRepeating,
+    [isRepeating, mode]
   );
+
+  if (buttonState === 'recording')
+    return <MainButton {...props} iconSource='stop-circle' onPress={stop} />;
+
+  return <MainButton
+    {...props}
+    disabled={disabled}
+    onPress={record}
+  />;
 };

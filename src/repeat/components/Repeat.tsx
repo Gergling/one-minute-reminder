@@ -1,11 +1,15 @@
 import { useAudio } from "@/src/audio";
-import { Button, ControlIconRepeatStart } from "@/src/common";
+import { useMainButtonProps } from "@/src/common/main-button";
+import { MainButton } from "@/src/common/main-button/Component";
 
 export const Repeat = () => {
-  const { repeat } = useAudio();
+  const { repeat: props } = useMainButtonProps();
+  const { isRepeating, mode, repeat } = useAudio();
   return (
-    <Button onPress={repeat}>
-      <ControlIconRepeatStart />
-    </Button>
+    <MainButton
+      {...props}
+      disabled={isRepeating || mode !== 'idle'}
+      onPress={repeat}
+    />
   );
 };
