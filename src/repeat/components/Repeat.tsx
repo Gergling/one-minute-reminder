@@ -5,11 +5,11 @@ import { Text } from "react-native-paper";
 
 export const Repeat = () => {
   const { repeat: props } = useMainButtonProps();
-  const { interval, isRepeating, mode, repeat } = useAudio();
+  const { hasSource, interval, isRepeating, mode, repeat } = useAudio();
   return (
     <MainButton
       {...props}
-      disabled={isRepeating || mode !== 'idle'}
+      disabled={!hasSource || isRepeating || mode !== 'idle'}
       onPress={repeat}
     >
       <View style={styles.container}>
