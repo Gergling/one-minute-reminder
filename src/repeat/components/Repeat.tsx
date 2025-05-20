@@ -1,15 +1,36 @@
 import { useAudio } from "@/src/audio";
-import { useMainButtonProps } from "@/src/common/main-button";
-import { MainButton } from "@/src/common/main-button/Component";
+import { MainButton, useMainButtonProps } from "@/src/common/main-button";
+import { StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
 
 export const Repeat = () => {
   const { repeat: props } = useMainButtonProps();
-  const { isRepeating, mode, repeat } = useAudio();
+  const { interval, isRepeating, mode, repeat } = useAudio();
   return (
     <MainButton
       {...props}
       disabled={isRepeating || mode !== 'idle'}
       onPress={repeat}
-    />
+    >
+      <View style={styles.container}>
+        <Text style={{ ...styles.text, color: props.textColor }}>{interval}</Text>
+      </View>
+    </MainButton>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: -180,
+    right: 0,
+    top: -95,
+  },
+  text: {
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+});
