@@ -1,8 +1,14 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useMemo } from "react";
+import { useColorScheme } from "react-native";
 import { PaperProvider } from "react-native-paper";
-import { useColorSchemeTheme } from "../hooks";
+import { darkTheme, lightTheme } from "../constants";
 
 export const AppThemeProvider = ({ children }: PropsWithChildren) => {
-  const theme = useColorSchemeTheme();
+  const colorScheme = useColorScheme();
+  const theme = useMemo(
+    () => colorScheme === 'dark' ? darkTheme : lightTheme,
+    [colorScheme]
+  );
+
   return <PaperProvider theme={theme}>{children}</PaperProvider>;
 };
