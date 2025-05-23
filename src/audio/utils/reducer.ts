@@ -5,7 +5,7 @@ type TypesMatching<T, V> = T extends V ? T : never;
 type MappableActions = TypesMatching<AudioReducerAction, string>;
 type MappableActionCurrentStates = {
   [key in MappableActions]: Mode;
-}
+};
 
 // TODO: 
 // We have a time at which the repeat has been started. 
@@ -13,12 +13,6 @@ type MappableActionCurrentStates = {
 // We have the current time.
 // The elapsed seconds is a number between the repeat start and the curren time.
 // When the elapsed seconds exceeds the interval, play the sound and reset the repeat start time.
-
-// const getSeconds = (date: Date) => date.getTime();
-const getDifference = (
-  earlier: Date,
-  later: Date = new Date(),
-) => (later.getTime() - earlier.getTime()) / 1000;
 
 const reducerCurrentMapping = (
   currentState: Mode,
@@ -48,7 +42,7 @@ export const reducer = (state: AudioState, action: AudioReducerAction): AudioSta
 
   const saveInterval = actionIsObject && action.type === 'interval';
   const startRepeatTime = actionIsRepeat
-    ? new Date()
+    ? Date.now()
     : action === 'stop' || action === 'record'
       ? undefined
       : state.startRepeatTime;
@@ -63,7 +57,7 @@ export const reducer = (state: AudioState, action: AudioReducerAction): AudioSta
 
   const uri = actionIsSave ? action.value : state.uri;
   const interval = actionUpdatesInterval ? action.value : state.interval;
-  const elapsed = startRepeatTime && getDifference(startRepeatTime, new Date());
+  const elapsed = startRepeatTime && (Date.now() - startRepeatTime) / 1000;
   const countdown: number | undefined = actionIsRepeat && interval !== null && interval >= 1
     ? interval
     : !state.countdown || elapsed === undefined || interval === null
