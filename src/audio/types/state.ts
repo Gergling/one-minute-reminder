@@ -3,6 +3,6 @@ export type AudioState = {
   mode: 'idle' | 'recording' | 'playing';
   interval: number | null;
   saveInterval: boolean;
-  startRepeatTime: Date | undefined;
+  startRepeatTime: number | undefined;
   uri: string | null;
 };
