@@ -1,0 +1,20 @@
+on:
+  - pull_request
+
+jobs:
+  quality_checks:
+    name: Run Quality Checks
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - name: Install packages
+        run: npm i
+
+      - name: Run the unit tests
+        run: npm run test-pull-request-validation
