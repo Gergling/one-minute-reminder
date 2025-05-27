@@ -12,6 +12,7 @@
         "simulator": true
       },
       "channel": "development-simulator"
-    }
+    },
+    "production": {}
   }
 }
