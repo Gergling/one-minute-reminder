@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    left: -180,
+    left: -150,
     right: 0,
-    top: -95,
+    top: -85,
   },
   text: {
     fontSize: 40,

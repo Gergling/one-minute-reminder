@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SIZE = 300;
+const SIZE = 280;
 type IndicatorProps = { color: string; };
 
 const Spinner = ({ color }: IndicatorProps) => <ActivityIndicator

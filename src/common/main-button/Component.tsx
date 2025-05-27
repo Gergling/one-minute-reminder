@@ -9,7 +9,7 @@ type MainButtonProps = Omit<ButtonProps, 'children'> &
 
 export const MainButton = ({ children, iconSource, ...props }: MainButtonProps) => (
   <Button {...props}>
-    <Icon color={props.textColor} size={180} source={iconSource} />
+    <Icon color={props.textColor} size={150} source={iconSource} />
     <View>{children}</View>
   </Button>
 );

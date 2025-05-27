@@ -1,4 +1,3 @@
-import { Interval } from "@/src/interval";
 import { Play } from "@/src/play";
 import { Record } from "@/src/record";
 import { Repeat } from "@/src/repeat";
@@ -10,7 +9,7 @@ const styles = StyleSheet.create({
   row: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
 });
 
@@ -27,7 +26,6 @@ export const Controls = () => {
         <Record />
         <Stop />
       </Row>
-      <Interval />
     </>
   );
 };
