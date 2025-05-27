@@ -1,9 +1,9 @@
 import { getModelList } from "./get-model-list";
-import { SimpleMockModel, simpleMockModelCaseValues } from "./mock-data";
+import { simpleMockModel, SimpleMockModel, simpleMockModelCaseValues } from "./mock-data";
 
 describe('getModelList', () => {
   it('should return a complete list of models based on the case value', () => {
-    const actual = getModelList(simpleMockModelCaseValues);
+    const actual = getModelList(simpleMockModel, simpleMockModelCaseValues);
     const expected: SimpleMockModel[] = [
       {
         explicit: 'a',
