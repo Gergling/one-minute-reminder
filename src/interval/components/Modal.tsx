@@ -1,5 +1,6 @@
+import { ThemedView } from "@/components/ThemedView";
 import { useCallback, useEffect, useState } from "react";
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import { Button, Modal, Surface, TextInput, useTheme } from "react-native-paper";
 
 type ModalInputProps = {
@@ -55,10 +56,10 @@ export const IntervalModal = ({ initialText, onClose, onSubmit, visible }: Modal
             style={styles.input}
             value={text}
           />
-          <View style={{ display: 'flex', flexDirection: 'row', alignSelf: 'flex-end' }}>
+          <ThemedView style={{ display: 'flex', flexDirection: 'row', alignSelf: 'flex-end' }}>
             <Button icon="cancel" mode="outlined" onPress={onClose}>Cancel</Button>
             <Button icon="check" mode="contained" onPress={handleSubmit} disabled={!isTextValid}>Accept</Button>
-          </View>
+          </ThemedView>
         </Surface>
       </KeyboardAvoidingView>
     </Modal>

@@ -1,5 +1,6 @@
+import { ThemedView } from "@/components/ThemedView";
 import { useAudio } from "@/src/audio";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { ActivityIndicator, Icon, Surface, useTheme } from "react-native-paper";
 
 const styles = StyleSheet.create({
@@ -48,16 +49,16 @@ const IndicatorIcon = ({
 
 const StatusPlay = ({ color }: IndicatorProps) => <>
   <Spinner color={color} />
-  <View style={styles.overlay}>
+  <ThemedView style={styles.overlay}>
     <IndicatorIcon color={color} source="play" />
-  </View>
+  </ThemedView>
 </>;
 
 const StatusRecord = ({ color }: IndicatorProps) => <>
   <Spinner color={color} />
-  <View style={styles.overlay}>
+  <ThemedView style={styles.overlay}>
     <IndicatorIcon color={color} source="record" />
-  </View>
+  </ThemedView>
 </>;
 
 const StatusRepeat = ({
@@ -69,12 +70,12 @@ const StatusRepeat = ({
   isPlaying: boolean;
 }) => <>
   <Spinner color={color} />
-  <View style={styles.overlay}>
+  <ThemedView style={styles.overlay}>
     {isPlaying
       ? <IndicatorIcon color={color} source="play" />
       : <Text style={{...styles.text, color}}>{countdown}</Text>
     }
-  </View>
+  </ThemedView>
 </>;
 
 const StatusStop = ({ color }: IndicatorProps) =>

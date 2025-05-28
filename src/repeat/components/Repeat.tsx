@@ -1,6 +1,7 @@
+import { ThemedView } from "@/components/ThemedView";
 import { useAudio } from "@/src/audio";
 import { MainButton, useMainButtonProps } from "@/src/main-button";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 
 export const Repeat = () => {
@@ -12,9 +13,9 @@ export const Repeat = () => {
       disabled={!hasSource || isRepeating || mode !== 'idle'}
       onPress={repeat}
     >
-      <View style={styles.container}>
+      <ThemedView style={styles.container}>
         <Text style={{ ...styles.text, color: props.textColor }}>{interval}</Text>
-      </View>
+      </ThemedView>
     </MainButton>
   );
 };

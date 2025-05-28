@@ -1,6 +1,7 @@
+import { ThemedView } from "@/components/ThemedView";
 import { useAudio } from "@/src/audio";
 import { useMainButtonProps } from "@/src/main-button";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { List } from "react-native-paper";
 
 export const Guide = () => {
@@ -30,7 +31,7 @@ export const Guide = () => {
     },
   ];
   return (
-    <View>
+    <ThemedView>
       {helpList.map(({
         buttonColor,
         description,
@@ -42,7 +43,7 @@ export const Guide = () => {
           contentStyle={styles.reset}
           key={key}
           left={
-            props => <View style={{
+            props => <ThemedView style={{
               ...styles.view,
               backgroundColor: buttonColor,
             }}>
@@ -54,18 +55,19 @@ export const Guide = () => {
                   /** This empty object is here to cut the extra space. */
                 }}
               />
-            </View>
+            </ThemedView>
           }
           title={description}
         />
       ))}
-    </View>
+    </ThemedView>
   );
 };
 
 const styles = StyleSheet.create({
   view: {
     display: 'flex',
+    borderRadius: 5,
   },
   reset: {
     color: 'red',
