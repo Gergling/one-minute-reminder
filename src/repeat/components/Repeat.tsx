@@ -22,6 +22,7 @@ export const Repeat = () => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'transparent',
     position: 'absolute',
     display: 'flex',
     alignItems: 'center',
