@@ -11,6 +11,7 @@
     "lint": "expo lint",
     "test": "jest --watchAll",
     "test-pull-request-validation": "jest",
+    "type-check": "tsc --noEmit",
     "knip": "knip"
   },
   "dependencies": {

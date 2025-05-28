@@ -17,5 +17,8 @@ jobs:
       - name: Install packages
         run: npm i
 
+      - name: Check the typescript is valid
+        run: npm run type-check
+
       - name: Run the unit tests
         run: npm run test-pull-request-validation
