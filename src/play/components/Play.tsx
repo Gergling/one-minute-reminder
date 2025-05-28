@@ -1,6 +1,5 @@
 import { useAudio } from "@/src/audio";
-import { useMainButtonProps } from "@/src/common/main-button";
-import { MainButton } from "@/src/common/main-button/Component";
+import { MainButton, useMainButtonProps } from "@/src/main-button";
 
 export const Play = () => {
   const { play: props } = useMainButtonProps();

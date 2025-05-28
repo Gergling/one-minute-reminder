@@ -1,5 +1,5 @@
 import { useAudio } from "@/src/audio";
-import { useMainButtonProps } from "@/src/common/main-button";
+import { useMainButtonProps } from "@/src/main-button";
 import { StyleSheet, View } from "react-native";
 import { List } from "react-native-paper";
 
