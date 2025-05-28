@@ -1,9 +1,10 @@
+import { ThemedView } from "@/components/ThemedView";
 import { Play } from "@/src/play";
 import { Record } from "@/src/record";
 import { Repeat } from "@/src/repeat";
 import { Stop } from "@/src/stop";
 import { PropsWithChildren } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   row: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Row = ({ children }: PropsWithChildren) => <View style={styles.row}>{children}</View>;
+const Row = ({ children }: PropsWithChildren) => <ThemedView style={styles.row}>{children}</ThemedView>;
 
 export const Controls = () => {
   return (

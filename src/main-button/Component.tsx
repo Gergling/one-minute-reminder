@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ThemedView } from "@/components/ThemedView";
 import { Button, ButtonProps, Icon } from "react-native-paper";
 
 type MainButtonProps = Omit<ButtonProps, 'children'> &
@@ -10,6 +10,6 @@ type MainButtonProps = Omit<ButtonProps, 'children'> &
 export const MainButton = ({ children, iconSource, ...props }: MainButtonProps) => (
   <Button {...props}>
     <Icon color={props.textColor} size={150} source={iconSource} />
-    <View>{children}</View>
+    <ThemedView>{children}</ThemedView>
   </Button>
 );
