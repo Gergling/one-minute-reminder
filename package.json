@@ -12,8 +12,7 @@
     "test": "jest --watchAll",
     "test-pull-request-validation": "jest",
     "type-check": "tsc --noEmit",
-    "knip": "knip",
-    "build-preview-android": "eas build -p android --profile preview"
+    "knip": "knip"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
