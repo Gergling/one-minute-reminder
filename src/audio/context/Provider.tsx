@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
-import { useAudioContext } from "../hooks";
 import { AudioContext } from "./Context";
+import { useAudioContext } from "./hook";
 
 export const AudioContextProvider = ({ children }: PropsWithChildren) => {
   const contextValue = useAudioContext();

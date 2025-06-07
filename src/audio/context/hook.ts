@@ -2,11 +2,9 @@ import { AudioModule } from "expo-audio";
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { Alert } from "react-native";
 import { AUDIO_DEFAULT_STATE } from "../constants";
+import { useAudioPlayer, useAudioRecorder, useAudioRepeatIntervalStorage } from "../hooks";
 import { AudioContextProps } from "../types";
 import { reducer } from "../utils";
-import { useAudioRepeatIntervalStorage } from "./use-interval-storage";
-import { useAudioPlayer } from "./use-player";
-import { useAudioRecorder } from "./use-recorder";
 
 export const useAudioContext = (): AudioContextProps => {
   // State and Audio Hooks.
@@ -34,7 +32,7 @@ export const useAudioContext = (): AudioContextProps => {
             if (!response.granted) {
               stop();
             }
-          })
+          });
         AudioModule
           .requestRecordingPermissionsAsync()
           .then(({ granted }) => {

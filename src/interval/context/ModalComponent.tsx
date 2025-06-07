@@ -1,22 +1,24 @@
 import { ThemedView } from "@/components/ThemedView";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import { Button, Modal, Surface, TextInput, useTheme } from "react-native-paper";
+import { isSubmissionTextValid } from "../utils";
+import { useIntervalModal } from "./use-modal";
 
-type ModalInputProps = {
-  initialText: string;
-  onClose: () => void;
-  onSubmit: (updatedText: string) => void;
-  visible: boolean;
-};
-
-const useEffectHandler = (callback: React.EffectCallback) => useEffect(callback, [callback]);
-
-export const IntervalModal = ({ initialText, onClose, onSubmit, visible }: ModalInputProps) => {
+export const IntervalModal = () => {
   // State.
+  const {
+    initialText,
+    isOpen,
+    onClose,
+    onSubmit,
+  } = useIntervalModal();
   const { roundness } = useTheme();
   const [text, setText] = useState<string>(initialText);
-  const [isTextValid, setIsTextValid] = useState<boolean>(true);
+  const isTextValid = useMemo(
+    () => isSubmissionTextValid(initialText, text),
+    [initialText, text]
+  );
   const handleSubmit = () => {
     if (isTextValid) {
       onClose();
@@ -24,24 +26,13 @@ export const IntervalModal = ({ initialText, onClose, onSubmit, visible }: Modal
     }
   };
 
-  // Side effects.
-  const handleInitialTextState = useCallback(() => setText(initialText), [initialText]);
-  const handleTextIsNumeric = useCallback(() => {
-    const numericText = +text;
-    const valid = !isNaN(numericText)
-      && text !== ''
-      && text !== initialText
-      && numericText >= 1;
-    setIsTextValid(valid);
-  }, [initialText, text]);
-
-  // Side effect execution.
-  useEffectHandler(handleInitialTextState);
-  useEffectHandler(handleTextIsNumeric);
+  // Side effect: We need to mount the initial text state, because having the
+  // text formatted version of the interval in the main reducer is overkill.
+  useEffect(() => setText(initialText), [initialText]);
 
   // Render.
   return (
-    <Modal visible={visible}>
+    <Modal visible={isOpen}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.kav}
