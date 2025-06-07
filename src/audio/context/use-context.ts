@@ -68,6 +68,7 @@ export const useAudioContext = (): AudioContextProps => {
   const handlePlayerFinished = useCallback(
     () => {
       if (isPlayerFinished) {
+        // TODO: Possibly replace with 'pause'.
         dispatch('end');
       }
     },
