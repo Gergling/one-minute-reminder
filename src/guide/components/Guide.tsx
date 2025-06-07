@@ -1,7 +1,7 @@
 import { ThemedView } from "@/components/ThemedView";
 import { useAudio } from "@/src/audio";
 import { useMainButtonProps } from "@/src/main-button";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { List } from "react-native-paper";
 
 export const Guide = () => {
@@ -31,7 +31,7 @@ export const Guide = () => {
     },
   ];
   return (
-    <ThemedView>
+    <View>
       {helpList.map(({
         buttonColor,
         description,
@@ -60,7 +60,7 @@ export const Guide = () => {
           title={description}
         />
       ))}
-    </ThemedView>
+    </View>
   );
 };
 
