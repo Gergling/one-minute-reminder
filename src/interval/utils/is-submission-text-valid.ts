@@ -2,7 +2,7 @@ const isNumericTextSubmissionValid = (
   text: string
 ): boolean => {
   const numericText = +text;
-  if (!isNaN(numericText)) return false;
+  if (isNaN(numericText)) return false;
   if (numericText < 1) return false;
 
   return true;
