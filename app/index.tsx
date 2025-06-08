@@ -25,8 +25,8 @@ export default function HomeScreen() {
       </Group>
       <Group>
         <Guide />
-        <Interval />
       </Group>
+      <Interval />
     </AppProvider>
   );
 }

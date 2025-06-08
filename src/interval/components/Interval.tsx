@@ -16,6 +16,7 @@ export const Interval = () => {
     <FAB
       color={onPrimary}
       icon="pencil"
+      label="Edit Reminder Interval"
       onPress={handleEdit}
       style={{ ...styles.fab, backgroundColor: primary }}
     />
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     margin: 16,
+    marginBottom: 24,
     right: 0,
     bottom: 0,
   },
