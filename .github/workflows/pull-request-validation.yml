@@ -20,5 +20,8 @@ jobs:
       - name: Check the typescript is valid
         run: npm run type-check
 
+      - name: Lint the code
+        run: npm run lint
+
       - name: Run the unit tests
         run: npm run test-pull-request-validation
