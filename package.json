@@ -65,7 +65,12 @@
     "typescript": "~5.8.3"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
   },
   "private": true
 }
