@@ -12,6 +12,7 @@
     "test": "jest --watchAll",
     "test-pull-request-validation": "jest",
     "type-check": "tsc --noEmit",
+    "concatenate": "node ./scripts/concatenator.js",
     "knip": "knip"
   },
   "dependencies": {
