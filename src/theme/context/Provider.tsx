@@ -1,10 +1,11 @@
-import { ErrorBoundary } from '@/src/error-boundary/component/ErrorBoundary';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { PropsWithChildren, useMemo } from "react";
 import { useColorScheme } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { darkTheme, lightTheme } from "../constants";
 
+// TODO: This needs a clean-up of some kind because we have 2 (yes, TWO)
+// default themes, but it can wait.
 export const AppThemeProvider = ({ children }: PropsWithChildren) => {
   const colorScheme = useColorScheme();
   const theme = useMemo(
@@ -16,9 +17,7 @@ export const AppThemeProvider = ({ children }: PropsWithChildren) => {
     [colorScheme]
   );
 
-  return <ErrorBoundary error="AppThemeProvider did a bad">
-    <ThemeProvider value={navigationTheme}>
-      <PaperProvider theme={theme}>{children}</PaperProvider>
-    </ThemeProvider>;
-  </ErrorBoundary>
+  return <ThemeProvider value={navigationTheme}>
+    <PaperProvider theme={theme}>{children}</PaperProvider>
+  </ThemeProvider>;
 };
