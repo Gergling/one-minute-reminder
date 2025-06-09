@@ -1,3 +1,5 @@
+// TODO: Clean-up.
+
 module.exports = function babelJestConfig (api) {
   api.cache(true)
   return {
@@ -12,13 +14,13 @@ module.exports = function babelJestConfig (api) {
       ],
       [
         'babel-preset-expo',
-        { loose: true },
+        // { loose: true },
       ],
     ],
     plugins: [
       '@babel/plugin-transform-runtime',
       [
-        '@babel/plugin-proposal-class-properties',
+        '@babel/plugin-transform-class-properties',
         { loose: true },
       ],
       // ["module-resolver", {
