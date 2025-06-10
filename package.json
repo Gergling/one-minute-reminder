@@ -10,9 +10,9 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "test": "jest --watchAll",
-    "test-pull-request-validation": "jest",
-    "type-check": "tsc --noEmit",
     "concatenate": "node ./scripts/concatenator.js",
+    "validate:test": "jest",
+    "validate:type-check": "tsc --noEmit",
     "validate:unused": "knip"
   },
   "dependencies": {
