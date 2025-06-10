@@ -17,6 +17,9 @@ jobs:
       - name: Install packages
         run: npm i
 
+      - name: Run the Expo Doctor checks
+        run: npx expo-doctor
+
       - name: Check the typescript is valid
         run: npm run type-check
 
