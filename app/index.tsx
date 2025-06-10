@@ -17,20 +17,22 @@ const Group = ({ children }: PropsWithChildren) => <Card
 
 export default function HomeScreen() {
   return (
-    <AppProvider>
-      <AppErrorBoundary error='Index done did a bad'>
-        <Group>
-          <Status />
-        </Group>
-        <Group>
-          <Controls />
-        </Group>
-        <Group>
-          <Guide />
-        </Group>
-        <Interval />
-      </AppErrorBoundary>
-    </AppProvider>
+    <AppErrorBoundary error='Index outer done did a bad'>
+      <AppProvider>
+        <AppErrorBoundary error='Index inner done did a bad'>
+          <Group>
+            <Status />
+          </Group>
+          <Group>
+            <Controls />
+          </Group>
+          <Group>
+            <Guide />
+          </Group>
+          <Interval />
+        </AppErrorBoundary>
+      </AppProvider>
+    </AppErrorBoundary>
   );
 }
 
