@@ -24,11 +24,6 @@ export const Guide = () => {
       ...stop,
       description: 'Stop the current recording operation.',
     },
-    {
-      ...repeat,
-      iconSource: 'pencil',
-      description: `Edit the reminder interval.`,
-    },
   ];
   return (
     <View>

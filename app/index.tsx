@@ -1,5 +1,6 @@
 import { AppProvider } from '@/src/application';
 import { Controls } from '@/src/controls';
+import { AppErrorBoundary } from '@/src/error-boundary';
 import { Guide } from '@/src/guide';
 import { Interval } from '@/src/interval';
 import { Status } from '@/src/status';
@@ -16,18 +17,22 @@ const Group = ({ children }: PropsWithChildren) => <Card
 
 export default function HomeScreen() {
   return (
-    <AppProvider>
-      <Group>
-        <Status />
-      </Group>
-      <Group>
-        <Controls />
-      </Group>
-      <Group>
-        <Guide />
-        <Interval />
-      </Group>
-    </AppProvider>
+    <AppErrorBoundary error='Index outer done did a bad'>
+      <AppProvider>
+        <AppErrorBoundary error='Index inner done did a bad'>
+          <Group>
+            <Status />
+          </Group>
+          <Group>
+            <Controls />
+          </Group>
+          <Group>
+            <Guide />
+          </Group>
+          <Interval />
+        </AppErrorBoundary>
+      </AppProvider>
+    </AppErrorBoundary>
   );
 }
 
