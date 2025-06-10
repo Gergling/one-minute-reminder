@@ -2,7 +2,7 @@
 
 import RootLayout from '@/app/_layout';
 import { userEvent } from '@testing-library/react-native';
-import { renderRouter, screen } from 'expo-router/testing-library';
+import { act, renderRouter, screen } from 'expo-router/testing-library';
 import { View } from 'react-native';
 
 describe('Interval FAB', () => {
@@ -25,7 +25,9 @@ describe('Interval FAB', () => {
     //   // renderer = create(<RootLayout />);
     //   // const view = within(renderer!.root);
     // });
-    const [editButton] = screen.getAllByText('Edit Reminder Interval');
+    act(() => {
+      const [editButton] = screen.getAllByText('Edit Reminder Interval');
+    })
 
     // const editButton = getAllByTestId('fab');
     // act(() => {
