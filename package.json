@@ -13,7 +13,7 @@
     "test-pull-request-validation": "jest",
     "type-check": "tsc --noEmit",
     "concatenate": "node ./scripts/concatenator.js",
-    "knip": "knip"
+    "validate:unused": "knip"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
