@@ -24,7 +24,7 @@ jobs:
         run: npm run validate:type-check
 
       - name: Check for unused code with knip
-        run: npm run knip
+        run: npm run validate:unused
 
       - name: Lint the code
         run: npm run lint
